@@ -37,11 +37,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """
-                    ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=fastApi-app \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9001 \
-                        -Dsonar.token=${SONARQUBE} \
+                    ${scannerHome}/bin/sonar-scanner
 
                     """
                 }
