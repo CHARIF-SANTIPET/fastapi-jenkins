@@ -38,7 +38,7 @@ pipeline {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
                     . venv/bin/activate
-                    sonar-scanner
+                    scannerHome
                     '''
                 }
             }
