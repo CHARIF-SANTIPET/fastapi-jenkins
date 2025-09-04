@@ -7,6 +7,7 @@ pipeline {
     }
     environment {
         SONARQUBE = credentials('sonar-token')
+        scannerHome = tool 'SonarQubeScanner'
     }
     stages {
         stage('Checkout') {
@@ -21,7 +22,6 @@ pipeline {
                 . venv/bin/activate
                 pip install --upgrade pip
                 pip install -r requirements.txt
-                pip install sonar-scanner coverage
                 '''
             }
         }
@@ -34,7 +34,10 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner'
+                    sh '''
+                    . venv/bin/activate
+                    sonar-scanner
+                    '''
                 }
             }
         }
