@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         SONARQUBE = credentials('sonar-token')
-
+        scannerHome = tool 'SonarQubeScanner'
     }
     stages {
         stage('Checkout') {
@@ -34,9 +34,17 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
+            def scannerHome
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.projectKey=fastApi-app -Dsonar.sources=. -Dsonar.host.url=http://localhost:9001 -Dsonar.login=sqp_afad80ac9241b275998b9c8ca9b6e7eb60ec8a09'
+                    sh """
+                    ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=fastApi-app \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9001 \
+                        -Dsonar.token=sqp_afad80ac9241b275998b9c8ca9b6e7eb60ec8a09 
+
+                    """
                 }
             }
         }
