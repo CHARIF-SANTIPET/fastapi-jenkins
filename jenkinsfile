@@ -37,7 +37,7 @@ pipeline {
         script {
           def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
           withSonarQubeEnv('SonarQube') {
-            withCredentials([string(credentialsId: 'sonar_token', variable: 'sonar_token')]) {
+            withCredentials([string(credentialsId: 'sonar-token', variable: 'sonar-token')]) {
               sh """
                 ${scannerHome}/bin/sonar-scanner \
                   -Dsonar.projectKey=fast-api \
