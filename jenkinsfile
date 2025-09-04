@@ -9,10 +9,6 @@ pipeline {
         SONARQUBE = credentials('sonar-token')
 
     }
-
-    tools {
-        sonarQube 'SonarQubeScanner'
-    }
     stages {
         stage('Checkout') {
             steps {
