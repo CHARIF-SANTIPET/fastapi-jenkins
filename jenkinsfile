@@ -34,7 +34,6 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-            def scannerHome
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """
