@@ -16,13 +16,18 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'pip install --upgrade pip'
-                sh 'pip install -r requirements.txt'
-                sh 'pip install sonar-scanner coverage'
+                sh '''
+                python -m venv venv
+                . venv/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                pip install sonar-scanner coverage
+                '''
             }
         }
         stage('Run Tests & Coverage') {
             steps {
+                sh '. venv/bin/activate'
                 sh 'pytest --cov=app tests/'
             }
         }
