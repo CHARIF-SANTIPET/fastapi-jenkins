@@ -40,8 +40,8 @@ pipeline {
             withCredentials([string(credentialsId: 'sonar-token', variable: 'sonar-token')]) {
               sh """
                 ${scannerHome}/bin/sonar-scanner \
-                  -Dsonar.projectKey=fast-api \
-                  -Dsonar.projectName=fast-api \
+                  -Dsonar.projectKey=fastApi-app \
+                  -Dsonar.projectName=fastApi-app \
                   -Dsonar.sources=./app \
                   -Dsonar.token=$SONARQUBE
               """
