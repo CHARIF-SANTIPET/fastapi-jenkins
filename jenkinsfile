@@ -6,8 +6,6 @@ pipeline {
         }
     }
     environment {
-        JAVA_HOME = tool 'OpenJDK17'
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE = credentials('sonar-token')
         SCANNER_HOME = tool 'SonarQubeScanner'
     }    
@@ -17,6 +15,15 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/CHARIF-SANTIPET/fastapi-jenkins.git'
             }
         }
+    stage('System deps for SonarScanner') {
+      steps {
+        sh '''
+          apt-get update
+          apt-get install -y --no-install-recommends default-jre-headless ca-certificates
+          java -version
+        '''
+      }
+    }
         stage('Install Dependencies') {
             steps {
                 sh '''
