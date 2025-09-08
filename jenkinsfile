@@ -49,7 +49,7 @@ pipeline {
                     ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=fastApi-app \
                         -Dsonar.sources=./app \
-                        -Dsonar.host.url=http://localhost:9001 \
+                        -Dsonar.host.url=http://sonarqube:9000 \
                         -Dsonar.token=$SONARQUBE
                     """    
                 }
