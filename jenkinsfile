@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment {
-        SONARQUBE = credentials('sonar-token')
+        SONARQUBE = credentials('sonar-qube-fastapi-app')
         SCANNER_HOME = tool 'SonarQubeScanner'
     }    
     stages {
