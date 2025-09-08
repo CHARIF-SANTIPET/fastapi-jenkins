@@ -32,7 +32,7 @@ pipeline {
                 '''
             }
         }
-        stage(''Install jdk) {
+        stage('Install jdk') {
             step {
                 sh '''
                     apt-get update
