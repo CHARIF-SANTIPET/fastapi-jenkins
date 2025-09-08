@@ -50,7 +50,7 @@ pipeline {
                         -Dsonar.projectKey=fastApi-app \
                         -Dsonar.projectName='fastApi-app' \
                         -Dsonar.sources=./app \
-                        -Dsonar.host.url=http://sonarqube:9000 \
+                        -Dsonar.host.url=http://172.19.0.2:9000 \
                         -Dsonar.token=sqp_afad80ac9241b275998b9c8ca9b6e7eb60ec8a09
                     """    
                 }
