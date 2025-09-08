@@ -6,6 +6,8 @@ pipeline {
         }
     }
     environment {
+        JAVA_HOME = tool 'OpenJDK17'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE = credentials('sonar-token')
         SCANNER_HOME = tool 'SonarQubeScanner'
     }    
