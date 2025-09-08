@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker { 
-            image 'python:3.11' 
+            image 'python-java:latest' 
             args '-v /var/run/docker.sock:/var/run/docker.sock' 
         }
     }
@@ -32,33 +32,24 @@ pipeline {
                 '''
             }
         }
-        stage('Install jdk') {
-            steps {
-                sh '''
-                    apt-get update
-                    apt-get install -y openjdk-17-jdk
-                    java -version
-                '''
-            }
-        }
-           stage('SonarQube Analysis') {
-      steps {
-        script {
-          def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-          withSonarQubeEnv('SonarQube') {
-            withCredentials([string(credentialsId: 'sonar-token', variable: 'sonar-token')]) {
-              sh """
-                ${scannerHome}/bin/sonar-scanner \
-                  -Dsonar.projectKey=fastApi-app \
-                  -Dsonar.projectName=fastApi-app \
-                  -Dsonar.sources=./app \
-                  -Dsonar.token=$SONARQUBE
-              """
+        stage('SonarQube Analysis') {
+          steps {
+            script {
+              def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+              withSonarQubeEnv('SonarQube') {
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'sonar-token')]) {
+                  sh """
+                    ${scannerHome}/bin/sonar-scanner \
+                      -Dsonar.projectKey=fastApi-app \
+                      -Dsonar.projectName=fastApi-app \
+                      -Dsonar.sources=./app \
+                      -Dsonar.token=$SONARQUBE
+                  """
+                }
+              }
             }
           }
         }
-      }
-    }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t fastapi-app:latest .'
