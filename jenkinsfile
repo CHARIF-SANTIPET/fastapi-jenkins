@@ -45,12 +45,10 @@ pipeline {
          stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'echo "Waiting for SonarQube..." && sleep 30'
                     sh """
                     ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=fastApi-app \
                         -Dsonar.sources=./app \
-                        -Dsonar.host.url=http://sonarqube:9000 \
                         -Dsonar.token=$SONARQUBE
                     """    
                 }
