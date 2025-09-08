@@ -48,6 +48,7 @@ pipeline {
                     sh """
                     ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=fastApi-app \
+                        -Dsonar.projectName='fastApi-app' \
                         -Dsonar.sources=./app \
                         -Dsonar.token=$SONARQUBE
                     """    
