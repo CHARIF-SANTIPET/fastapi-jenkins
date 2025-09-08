@@ -32,6 +32,15 @@ pipeline {
                 '''
             }
         }
+        stage(''Install jdk) {
+            step {
+                sh '''
+                    apt-get update
+                    apt-get install -y openjdk-17-jdk
+                    java -version
+                '''
+            }
+        }
            stage('SonarQube Analysis') {
       steps {
         script {
